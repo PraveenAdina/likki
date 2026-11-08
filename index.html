@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>A Birthday Surprise 🎂</title>
+<meta name="description" content="A little animated birthday surprise, made with love.">
+<meta name="theme-color" content="#ffd9ec">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Chewy&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  HOW TO CUSTOMISE                                            ║
+  ║  1. Open script.js → edit the CONFIG block at the top        ║
+  ║     (Sister's name, your name, birthday wishes, speech).     ║
+  ║  2. Put your photos in an /images folder, then in this file  ║
+  ║     fill data-src on each placeholder, e.g.                  ║
+  ║       <img data-src="images/us-1.jpg" alt="Us at the beach"> ║
+  ║     Any size works: portrait, landscape or square. Frames    ║
+  ║     fix the shape and the photo is cropped to fit            ║
+  ║     (object-fit: cover). For no cropping add class           ║
+  ║     "fit-contain" to the .photo div.                         ║
+  ║  3. Edit the secret letter text in the #letterPaper block.   ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<noscript><p style="padding:2rem;font-family:sans-serif;text-align:center">This birthday surprise needs JavaScript to be turned on 🎂</p></noscript>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<button id="musicBtn" class="music-btn" aria-label="Toggle music" aria-pressed="false">
+  <span class="ico" id="musicIco">🎵</span><span class="hint" id="musicHint">tap for music</span>
+</button>
+
+<!-- ═══════════════ 1. LOADING SCREEN ═══════════════ -->
+<section id="loader" class="screen sky-screen active" aria-label="Loading">
+  <div class="sky"></div>
+  <div class="floaters"></div>
+  <div class="loader-card">
+    <h1 class="load-title">Wrapping your surprise<span class="dots"></span></h1>
+
+    <div class="load-scene" style="--p:0%">
+      <div class="puller">
+        <div class="puller-in">
+          <!-- Original cartoon bear (yellow, red shirt) dragging a birthday cake on wheels -->
+          <svg viewBox="0 0 320 160" role="img" aria-label="A cute bear pulling a birthday cake">
+            <!-- cake -->
+            <g class="cake-g">
+              <rect x="6" y="122" width="108" height="9" rx="4.5" fill="#fff" stroke="#f0dff0" stroke-width="2"/>
+              <rect x="14" y="92" width="92" height="32" rx="12" fill="#ffb3d1"/>
+              <path d="M14 104 Q14 92 28 92 H92 Q106 92 106 104 Q99 114 92 104 Q85 118 78 104 Q71 114 64 104 Q57 118 50 104 Q43 114 36 104 Q29 114 14 104Z" fill="#fff"/>
+              <rect x="30" y="64" width="60" height="30" rx="11" fill="#fff1c9"/>
+              <path d="M30 74 Q30 64 42 64 H78 Q90 64 90 74 Q84 82 78 74 Q72 84 66 74 Q60 82 54 74 Q48 84 42 74 Q36 82 30 74Z" fill="#fff"/>
+              <rect x="57" y="40" width="6" height="24" rx="3" fill="#78c0f5"/>
+              <rect x="57" y="46" width="6" height="4" fill="#fff" opacity=".7"/><rect x="57" y="54" width="6" height="4" fill="#fff" opacity=".7"/>
+              <ellipse class="flame" cx="60" cy="33" rx="5" ry="8" fill="#ffb347"/>
+              <ellipse class="flame f2" cx="60" cy="35" rx="2.5" ry="4.5" fill="#fff3a0"/>
+              <circle cx="40" cy="62" r="5" fill="#ff5a6e"/>
+              <rect x="26" y="98" width="6" height="3" rx="1.5" fill="#78c0f5" transform="rotate(25 29 99)"/>
+              <rect x="62" y="108" width="6" height="3" rx="1.5" fill="#ffd75e" transform="rotate(-30 65 109)"/>
+              <rect x="88" y="97" width="6" height="3" rx="1.5" fill="#9b7bff" transform="rotate(40 91 98)"/>
+              <circle class="wheel" cx="30" cy="140" r="10" fill="#9b7bff"/>
+              <circle class="wheel" cx="90" cy="140" r="10" fill="#9b7bff"/>
+              <g class="wheel-spokes" stroke="#fff" stroke-width="2.5" stroke-linecap="round">
+                <path class="wheel" d="M30 134 V146 M24 140 H36"/><path class="wheel" d="M90 134 V146 M84 140 H96"/>
+              </g>
+            </g>
+            <!-- rope -->
+            <path d="M110 118 Q150 134 196 104" fill="none" stroke="#b5835a" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- bear -->
+            <g class="bear-g">
+              <rect class="leg l1" x="216" y="120" width="17" height="26" rx="8" fill="#ffd75e"/>
+              <rect class="leg l2" x="242" y="120" width="17" height="26" rx="8" fill="#ffd75e"/>
+              <ellipse cx="226" cy="147" rx="12" ry="6" fill="#f2b84a"/><ellipse cx="253" cy="147" rx="12" ry="6" fill="#f2b84a"/>
+              <rect x="208" y="80" width="58" height="46" rx="20" fill="#ff5a6e"/>
+              <path d="M226 80 L237 92 L248 80Z" fill="#fff"/>
+              <path d="M237 101 l3 6 6.5 1 -4.7 4.5 1.1 6.4 -5.9 -3.1 -5.9 3.1 1.1 -6.4 -4.7 -4.5 6.5 -1z" fill="#ffd75e" transform="translate(0 -4) scale(1)"/>
+              <path class="arm" d="M210 96 Q198 104 192 104" fill="none" stroke="#ffd75e" stroke-width="13" stroke-linecap="round"/>
+              <path d="M264 98 Q276 104 274 114" fill="none" stroke="#ffd75e" stroke-width="13" stroke-linecap="round"/>
+              <circle cx="214" cy="30" r="12" fill="#ffd75e"/><circle cx="214" cy="30" r="6" fill="#ffb347"/>
+              <circle cx="266" cy="30" r="12" fill="#ffd75e"/><circle cx="266" cy="30" r="6" fill="#ffb347"/>
+              <circle cx="240" cy="58" r="34" fill="#ffd75e"/>
+              <ellipse cx="244" cy="70" rx="15" ry="11" fill="#ffeab0"/>
+              <ellipse cx="244" cy="64" rx="6" ry="4.2" fill="#6b3f2a"/>
+              <path d="M238 74 Q244 80 250 74" fill="none" stroke="#6b3f2a" stroke-width="2.6" stroke-linecap="round"/>
+              <ellipse class="eye" cx="228" cy="52" rx="3.8" ry="4.8" fill="#3b2a4a"/>
+              <ellipse class="eye" cx="256" cy="52" rx="3.8" ry="4.8" fill="#3b2a4a"/>
+              <circle cx="229.3" cy="50.4" r="1.4" fill="#fff"/><circle cx="257.3" cy="50.4" r="1.4" fill="#fff"/>
+              <circle cx="216" cy="66" r="6" fill="#ff9bb8" opacity=".6"/><circle cx="268" cy="66" r="6" fill="#ff9bb8" opacity=".6"/>
+              <!-- party hat -->
+              <path d="M240 8 L224 32 L256 32Z" fill="#ff7fb0"/>
+              <circle cx="240" cy="7" r="4.5" fill="#fff"/>
+              <circle cx="234" cy="24" r="2.2" fill="#fff"/><circle cx="246" cy="22" r="2.2" fill="#fff"/><circle cx="240" cy="28" r="2" fill="#ffd75e"/>
+            </g>
+          </svg>
+          <span class="sp s1">✨</span><span class="sp s2">✨</span><span class="sp s3">⭐</span><span class="sp s4">✨</span>
+        </div>
+      </div>
+      <div class="bar"><div class="fill"></div></div>
+    </div>
+
+    <p class="pct"><span id="pct">0</span>%</p>
+    <p class="load-msg" id="loadMsg">Baking the cake… 🧁</p>
+  </div>
+</section>
+
+<!-- ═══════════════ 2. SURPRISE QUESTION ═══════════════ -->
+<section id="ask" class="screen sky-screen" aria-label="Surprise question">
+  <div class="sky"></div>
+  <div class="floaters"></div>
+  <div class="center-col">
+    <div class="gift" aria-hidden="true"><span>🎁</span><i>✨</i><i>💖</i><i>⭐</i></div>
+    <h1 class="ask-title" id="askTitle"><span id="askL1">I have a surprise for you 🎁</span><span id="askL2">Do you want to see it?</span></h1>
+    <div class="btn-row">
+      <button id="yesBtn" class="big-btn yes">✅ Yes</button>
+      <button id="noBtn" class="big-btn no">❌ No</button>
+    </div>
+    <p class="tiny" id="askHint">(psst… it's a really good one)</p>
+  </div>
+</section>
+
+<!-- ═══════════════ 3. "NO" PAGE ═══════════════ -->
+<section id="sad" class="screen sad-screen" aria-label="Sad duck">
+  <div class="rain" id="rain"></div>
+  <div class="floaters"></div>
+  <div class="center-col">
+    <div class="duck-wrap">
+      <svg class="duck" viewBox="0 0 200 210" role="img" aria-label="A crying cartoon duck">
+        <ellipse class="puddle" cx="100" cy="196" rx="62" ry="9" fill="#9fc3f0" opacity=".7"/>
+        <ellipse class="ripple" cx="100" cy="196" rx="20" ry="4" fill="none" stroke="#fff" stroke-width="2"/>
+        <g class="duck-body">
+          <path d="M150 140 Q182 128 176 108 Q164 124 144 124Z" fill="#ffd23f"/>
+          <ellipse cx="100" cy="148" rx="60" ry="46" fill="#ffe066"/>
+          <ellipse class="wing" cx="56" cy="150" rx="18" ry="26" fill="#ffd23f" transform="rotate(14 56 150)"/>
+          <ellipse cx="78" cy="190" rx="14" ry="6" fill="#ff9f43"/><ellipse cx="122" cy="190" rx="14" ry="6" fill="#ff9f43"/>
+        </g>
+        <g class="duck-head">
+          <path d="M96 38 Q92 22 100 20 Q102 30 110 36Z" fill="#ffd23f"/>
+          <circle cx="100" cy="82" r="46" fill="#ffe066"/>
+          <ellipse cx="66" cy="96" rx="9" ry="6" fill="#ff9bb8" opacity=".65"/><ellipse cx="134" cy="96" rx="9" ry="6" fill="#ff9bb8" opacity=".65"/>
+          <path d="M72 100 Q100 90 128 100 Q124 118 100 118 Q76 118 72 100Z" fill="#ff9f43"/>
+          <path d="M80 104 Q100 99 120 104" stroke="#e8801f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M88 112 Q100 108 112 112" stroke="#c96a12" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/>
+          <g class="eye"><circle cx="80" cy="76" r="11" fill="#fff"/><circle cx="82" cy="80" r="7" fill="#3b2a4a"/><circle cx="84.5" cy="77" r="2.6" fill="#fff"/><circle cx="79" cy="83" r="1.3" fill="#fff"/></g>
+          <g class="eye e2"><circle cx="120" cy="76" r="11" fill="#fff"/><circle cx="118" cy="80" r="7" fill="#3b2a4a"/><circle cx="120.5" cy="77" r="2.6" fill="#fff"/><circle cx="115" cy="83" r="1.3" fill="#fff"/></g>
+          <path d="M66 60 L90 66" stroke="#8a5a2b" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M134 60 L110 66" stroke="#8a5a2b" stroke-width="3.5" stroke-linecap="round"/>
+          <path class="stream" d="M78 88 Q74 110 70 130" stroke="#8fd0ff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".55"/>
+          <path class="stream" d="M122 88 Q126 110 130 130" stroke="#8fd0ff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".55"/>
+          <path class="tear" d="M78 90 q-6 10 0 14 q6 -4 0 -14Z" fill="#8fd0ff" style="--dl:0s"/>
+          <path class="tear" d="M78 90 q-6 10 0 14 q6 -4 0 -14Z" fill="#b4e1ff" style="--dl:.7s"/>
+          <path class="tear" d="M122 90 q-6 10 0 14 q6 -4 0 -14Z" fill="#8fd0ff" style="--dl:.35s"/>
+          <path class="tear" d="M122 90 q-6 10 0 14 q6 -4 0 -14Z" fill="#b4e1ff" style="--dl:1.05s"/>
+        </g>
+      </svg>
+    </div>
+    <h2 class="sad-title">Really...? 🥺<small>You don't want to see my surprise?</small></h2>
+    <button id="againBtn" class="big-btn again">Okay Fine... Let Me Ask Again</button>
+  </div>
+</section>
+
+<!-- ═══════════════ MAIN STORY ═══════════════ -->
+<main id="story" class="screen story" aria-label="Birthday surprise">
+  <nav class="dots" id="dots" aria-label="Sections"></nav>
+
+  <!-- ───────── 1. WELCOME ───────── -->
+  <section id="welcome" class="sec welcome" data-title="Welcome">
+    <div class="px" data-speed=".18"><div class="balloons" id="welcomeBalloons"></div></div>
+    <div class="floaters"></div>
+    <div class="welcome-in">
+      <p class="eyebrow reveal" data-anim="down">✨ a little surprise, made just for you ✨</p>
+      <h1 class="hbd" id="hbdTitle" aria-label="Happy Birthday!"></h1>
+      <h2 class="friend-name reveal" data-anim="zoom" style="--d:.8s"><span class="fname">LIKHITHA</span> 🎉</h2>
+      <button class="cake-btn tilt" id="cakeBtn" aria-label="Blow out the candles"></button>
+      <p class="hint-bounce" id="cakeHint">👆 tap the candles &amp; make a wish</p>
+    </div>
+    <div class="scroll-cue" aria-hidden="true">scroll<span>⌄</span></div>
+  </section>
+
+  <!-- ───────── 2. MEMORY GALLERY ───────── -->
+  <section id="gallery" class="sec gallery" data-title="Memories">
+    <div class="px" data-speed="-.12"><span class="deco" style="left:6%;top:6%">📸</span><span class="deco" style="right:8%;top:14%">🌸</span><span class="deco" style="left:10%;top:48%">💕</span><span class="deco" style="right:6%;top:62%">⭐</span><span class="deco" style="left:48%;top:90%">🎞️</span></div>
+    <h2 class="sec-title reveal" data-anim="down">your Memory Lane <em>📷</em></h2>
+    <p class="sec-sub reveal" style="--d:.1s">Every picture is a little pocket of happy.</p>
+
+    <!-- Floating photo frames -->
+    <div class="frames">
+      <div class="frame f-circle reveal" data-anim="zoom" style="--d:.0s">
+        <div class="photo r-sq"><!-- FRIEND IMAGE PLACEHOLDER 1 (square / circle frame) --><img src="images/u1.jpg" alt="Sister photo 1"><span class="ph"><b>📷</b>Photo 1</span></div>
+      </div>
+      <div class="frame f-arch reveal" data-anim="zoom" style="--d:.15s">
+        <div class="photo r-port"><!-- Sister IMAGE PLACEHOLDER 2 (portrait / arch frame) --><img data-src="images/u2.jpeg" alt="Sister photo 2"><span class="ph"><b>📷</b>Photo 2</span></div>
+      </div>
+      <div class="frame f-blob reveal" data-anim="zoom" style="--d:.3s">
+        <div class="photo r-sq"><!-- Sister IMAGE PLACEHOLDER 3 (square / blob frame) --><img data-src="images/u3.jpg" alt="Sister photo 3"><span class="ph"><b>📷</b>Photo 3</span></div>
+      </div>
+    </div>
+
+    <!-- Polaroids -->
+    <h3 class="mini-title reveal">The Polaroid Wall</h3>
+    <div class="polaroids">
+      <figure class="polaroid reveal" data-anim="spin" style="--rot:-5deg;--d:0s;--bd:0s">
+        <div class="photo r-sq"><!-- Sister IMAGE PLACEHOLDER 4 --><img data-src="images/u26.jpg" alt="Sister photo 4"><span class="ph"><b>📷</b>Photo 4</span></div>
+        <figcaption>the day you enjoyed a lot</figcaption>
+      </figure>
+      <figure class="polaroid reveal" data-anim="spin" style="--rot:4deg;--d:.12s;--bd:-1.2s">
+        <div class="photo r-port"><!-- Sister IMAGE PLACEHOLDER 5 --><img data-src="images/u16.jpg" alt="Sister photo 5"><span class="ph"><b>📷</b>Photo 5</span></div>
+        <figcaption>peak cuteness 🌸</figcaption>
+      </figure>
+      <figure class="polaroid reveal" data-anim="spin" style="--rot:-3deg;--d:.24s;--bd:-2.4s">
+        <div class="photo r-land"><!-- Sister IMAGE PLACEHOLDER 6 --><img data-src="images/u5.jpg" alt="Sister photo 6"><span class="ph"><b>📷</b>Photo 6</span></div>
+        <figcaption>adventure mode ✨</figcaption>
+      </figure>
+      <figure class="polaroid reveal" data-anim="spin" style="--rot:6deg;--d:.36s;--bd:-3.6s">
+        <div class="photo r-sq"><!-- Sister IMAGE PLACEHOLDER 7 --><img data-src="images/u25.jpg" alt="Sister photo 7"><span class="ph"><b>📷</b>Photo 7</span></div>
+        <figcaption>snack break, obviously 🍕</figcaption>
+      </figure>
+    </div>
+
+    <!-- Flip cards -->
+    <h3 class="mini-title reveal">Flip a Memory</h3>
+    <p class="sec-sub small reveal">(hover or tap the cards)</p>
+    <div class="flips">
+      <div class="flip reveal" data-anim="up" style="--d:0s" tabindex="0">
+        <div class="flip-in">
+          <div class="flip-face front"><div class="photo r-port"><!-- Sister IMAGE PLACEHOLDER 8 --><img data-src="images/u8.jpg" alt="Sister photo 8"><span class="ph"><b>📷</b>Photo 8</span></div></div>
+          <div class="flip-face back"><div class="photo r-port"><!-- Sister IMAGE PLACEHOLDER 8 --><img data-src="images/u23.jpg" alt="Sister photo 8"><span class="ph"><b>📷</b>Photo 8</span></div></div>
+        </div>
+      </div>
+      <div class="flip reveal" data-anim="up" style="--d:.15s" tabindex="0">
+        <div class="flip-in">
+          <div class="flip-face front"><div class="photo r-port"><!-- Sister IMAGE PLACEHOLDER 9 --><img data-src="images/u9.jpg" alt="Sister photo 9"><span class="ph"><b>📷</b>Photo 9</span></div></div>
+          <div class="flip-face back"><div class="photo r-port"><!-- Sister IMAGE PLACEHOLDER 8 --><img data-src="images/u35.jpg" alt="Sister photo 8"><span class="ph"><b>📷</b>Photo 8</span></div></div>
+        </div>
+      </div>
+      <div class="flip reveal" data-anim="up" style="--d:.3s" tabindex="0">
+        <div class="flip-in">
+          <div class="flip-face front"><div class="photo r-port"><!-- Sister IMAGE PLACEHOLDER 10 --><img data-src="images/u24.jpg" alt="Sister photo 10"><span class="ph"><b>📷</b>Photo 10</span></div></div>
+          <div class="flip-face back"><div class="photo r-port"><!-- Sister IMAGE PLACEHOLDER 8 --><img data-src="images/u18.jpg" alt="Sister photo 8"><span class="ph"><b>📷</b>Photo 8</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Masonry -->
+    <h3 class="mini-title reveal">The Big Collage</h3>
+    <div class="masonry">
+      <figure class="m-item tilt reveal" data-anim="up"><div class="photo r-port"><!-- FRIEND IMAGE PLACEHOLDER 11 --><img data-src="images/u11.jpg" alt="Friend photo 11"><span class="ph"><b>📷</b>Photo 11</span></div><figcaption></figcaption></figure>
+      <figure class="m-item tilt reveal" data-anim="up" style="--d:.08s"><div class="photo r-land"><!-- FRIEND IMAGE PLACEHOLDER 12 --><img data-src="images/u12.jpg" alt="Friend photo 12"><span class="ph"><b>📷</b>Photo 12</span></div><figcaption></figcaption></figure>
+      <figure class="m-item tilt reveal" data-anim="up" style="--d:.16s"><div class="photo r-sq"><!-- FRIEND IMAGE PLACEHOLDER 13 --><img data-src="images/u13.jpg" alt="Friend photo 13"><span class="ph"><b>📷</b>Photo 13</span></div><figcaption></figcaption></figure>
+      <figure class="m-item tilt reveal" data-anim="up" style="--d:.24s"><div class="photo r-tall"><!-- FRIEND IMAGE PLACEHOLDER 14 --><img data-src="images/u14.jpg" alt="Friend photo 14"><span class="ph"><b>📷</b>Photo 14</span></div><figcaption></figcaption></figure>
+      <figure class="m-item tilt reveal" data-anim="up" style="--d:.32s"><div class="photo r-sq"><!-- FRIEND IMAGE PLACEHOLDER 15 --><img data-src="images/u19.jpg" alt="Friend photo 15"><span class="ph"><b>📷</b>Photo 15</span></div><figcaption></figcaption></figure>
+      <figure class="m-item tilt reveal" data-anim="up" style="--d:.4s"><div class="photo r-land"><!-- FRIEND IMAGE PLACEHOLDER 16 --><img data-src="images/u16.jpg" alt="Friend photo 16"><span class="ph"><b>📷</b>Photo 16</span></div><figcaption></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ───────── 3. FRIENDSHIP ───────── -->
+  <section id="friend" class="sec friend" data-title="You">
+    <div class="px" data-speed=".14"><span class="deco" style="left:5%;top:8%">🌟</span><span class="deco" style="right:6%;top:20%">🫧</span><span class="deco" style="left:8%;top:70%">🍓</span><span class="deco" style="right:9%;top:78%">💗</span></div>
+    <h2 class="sec-title reveal" data-anim="down">Why You're Awesome <em>🌟</em></h2>
+    <p class="sec-sub reveal" style="--d:.1s">A very scientific list. (Peer-reviewed by me.)</p>
+
+    <!-- ✏️ EDIT THESE CARDS: change the emoji, title and text -->
+    <div class="cards">
+      <article class="card tilt reveal" data-anim="up" style="--d:0s;--h:330"><span class="c-ico">🌈</span><h3>You make everything brighter</h3><p>Even Mondays. Especially Mondays. That's actual magic.</p></article>
+      <article class="card tilt reveal" data-anim="up" style="--d:.1s;--h:20"><span class="c-ico">🤣</span><h3>Your laugh is a public service</h3><p>It fixes bad days with zero side effects.</p></article>
+      <article class="card tilt reveal" data-anim="up" style="--d:.2s;--h:280"><span class="c-ico">🫶</span><h3>You always show up</h3><p>No questions asked. Snacks optional (but appreciated).</p></article>
+      <article class="card tilt reveal" data-anim="up" style="--d:.3s;--h:45"><span class="c-ico">🍕</span><h3>Snack-level genius</h3><p>You always know exactly what everyone is craving.</p></article>
+      <article class="card tilt reveal" data-anim="up" style="--d:.4s;--h:200"><span class="c-ico">✨</span><h3>Main-character energy</h3><p>But you share the spotlight. Rare. Iconic. Legendary.</p></article>
+      <article class="card tilt reveal" data-anim="up" style="--d:.5s;--h:310"><span class="c-ico">🧸</span><h3>Soft heart, strong spirit</h3><p>The safest hug in the whole universe.</p></article>
+    </div>
+
+    <div class="stats">
+      <div class="stat reveal" data-anim="zoom"><b data-count="100" data-suffix="%">0</b><span>chaos energy</span></div>
+      <div class="stat reveal" data-anim="zoom" style="--d:.12s"><b>∞</b><span>laughs shared</span></div>
+      <div class="stat reveal" data-anim="zoom" style="--d:.24s"><b data-count="1">0</b><span>forever friend</span></div>
+    </div>
+  </section>
+
+  <!-- ───────── 4. PEACH CAT ───────── -->
+  <section id="peach" class="sec peach" data-title="Peach Cats">
+    <div class="floaters" id="peachFloaters"></div>
+    <div class="paws" aria-hidden="true"></div>
+    <h2 class="sec-title reveal" data-anim="down">Peach Cat Corner <em>🍑</em></h2>
+    <p class="sec-sub reveal" style="--d:.1s">Squishy, soft, and extremely supportive. (Tap a cat!)</p>
+
+    <div class="cat-stage" id="catStage"></div>
+
+    <div class="cat-photos">
+      <div class="cat-ph reveal" data-anim="zoom"><div class="photo r-sq"><!-- PEACH CAT IMAGE PLACEHOLDER 1 (a favourite peach-cat sticker / meme / photo) --><img data-src="images\2.gif" alt="Peach cat 1"><span class="ph"><b>🍑</b>Peach cat 1</span></div></div>
+      <div class="cat-ph reveal" data-anim="zoom" style="--d:.12s"><div class="photo r-sq"><!-- PEACH CAT IMAGE PLACEHOLDER 2 --><img data-src="images/1.gif" alt="Peach cat 2"><span class="ph"><b>🍑</b>Peach cat 2</span></div></div>
+      <div class="cat-ph reveal" data-anim="zoom" style="--d:.24s"><div class="photo r-sq"><!-- PEACH CAT IMAGE PLACEHOLDER 3 --><img data-src="images\3.gif" alt="Peach cat 3"><span class="ph"><b>🍑</b>Peach cat 3</span></div></div>
+    </div>
+  </section>
+
+  <!-- ───────── 5. CARTOON WORLD ───────── -->
+  <section id="toons" class="sec toons" data-title="Cartoon World">
+    <div class="px" data-speed="-.1"><span class="deco" style="left:4%;top:10%">💥</span><span class="deco" style="right:6%;top:18%">🎈</span><span class="deco" style="left:8%;top:60%">⚡</span><span class="deco" style="right:8%;top:70%">🪄</span></div>
+    <h2 class="sec-title reveal" data-anim="down">The Cartoon Universe <em>🎉</em></h2>
+    <p class="sec-sub reveal" style="--d:.1s">Every hero in town came to your party. (Tap them!)</p>
+    <div class="stage reveal" data-anim="zoom">
+      <div class="flags" id="flags"></div>
+      <div class="rainbow"></div>
+      <div class="stage-row" id="toonRow"></div>
+      <div class="stage-floor"></div>
+    </div>
+  </section>
+
+  <!-- ───────── 6. WISHES ───────── -->
+  <section id="wishes" class="sec wishes" data-title="Wishes">
+    <div class="floaters" id="wishFloaters"></div>
+    <h2 class="sec-title reveal" data-anim="down">Birthday Wishes <em>💌</em></h2>
+    <div class="wish-card glass reveal" data-anim="zoom">
+      <div class="wish-text" id="typed" aria-live="polite"></div>
+    </div>
+    <div class="btn-row small">
+      <button class="pill-btn" id="fwBtn">🎆 Fireworks!</button>
+      <button class="pill-btn" id="replayWish">🔁 Replay wishes</button>
+    </div>
+  </section>
+
+  <!-- ───────── 7. SECRET LETTER ───────── -->
+  <section id="letter" class="sec letter" data-title="Letter">
+    <div class="px" data-speed=".12"><span class="deco" style="left:7%;top:12%">💗</span><span class="deco" style="right:8%;top:30%">✉️</span><span class="deco" style="left:12%;top:72%">🌷</span></div>
+    <h2 class="sec-title reveal" data-anim="down">A Secret Letter <em>🤫</em></h2>
+    <div class="letter-stage">
+      <div class="env-wrap" id="envWrap">
+        <button class="envelope" id="envelope" aria-label="Open the secret letter">
+          <span class="env-back"></span>
+          <span class="env-letter"><i></i><i></i><i></i><i></i></span>
+          <span class="env-front"></span>
+          <span class="env-flap"></span>
+          <span class="env-seal">💌</span>
+        </button>
+        <p class="hint-bounce" id="envHint">💌 tap the envelope</p>
+      </div>
+
+      <article class="letter-paper" id="letterPaper" hidden>
+        <!-- ✏️ EDIT YOUR LETTER HERE -->
+        <h3>Dear <span class="fname">Sister</span>,</h3>
+        <p>Happy Birthday! I wanted to say something real, so I'm putting it in a letter (with way too many emojis).</p>
+        <p>Thank you for being the kind of sister who makes ordinary days feel like little adventures. You're funny, you're thoughtful, and you somehow make everyone around you feel like they matter.</p>
+        <p>I hope this year is full of cake, good news, long laughs, and every wish you've been keeping to yourself. You deserve all of it, and then some.</p>
+        <p>I'm really lucky to have you. Never forget that. 💖</p>
+        <p class="sign">With all my love,<br><span class="fromname">Your brother</span> 💌</p>
+        <button class="pill-btn close-letter" id="closeLetter">🔁 Fold it back</button>
+      </article>
+    </div>
+  </section>
+
+  <!-- ───────── 8. FINALE ───────── -->
+  <section id="finale" class="sec finale" data-title="Finale">
+    <div class="sky finale-sky" id="finaleSky"></div>
+    <div class="floaters" id="finaleFloaters"></div>
+    <div class="balloon-field" id="balloonField"></div>
+    <div class="finale-in">
+      <p class="eyebrow light">🎊 and the moment you've all been waiting for 🎊</p>
+      <h2 class="mega" id="megaTitle" aria-label="Happy Birthday!"></h2>
+      <h3 class="finale-name"><span class="fname">Sister</span> 💖</h3>
+      <div class="finale-cake" id="finaleCake"></div>
+      <div class="dancers" id="dancers"></div>
+      <div class="btn-row small">
+        <button class="pill-btn" id="popBtn">🎈 Pop all balloons</button>
+        <button class="pill-btn" id="moreBtn">🎆 More celebration!</button>
+        <button class="pill-btn" id="replayAll">↺ Replay the surprise</button>
+      </div>
+      <p class="made">Made with 💖 by <span class="fromname">your Brother</span></p>
+    </div>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
